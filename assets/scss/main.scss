@@ -1,0 +1,25 @@
+
+@import "utils/variables";
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&family=Roboto:wght@100;300;400;500&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: sans-serif;
+}
+a{
+  text-decoration: none;
+  color: $text-color-grey;
+}
+
+.nuxt-link-exact-active,
+.nuxt-link-active {
+  text-decoration: none;
+  color: $text-color-white; 
+}
