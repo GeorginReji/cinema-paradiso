@@ -1,12 +1,43 @@
 <template>
     <div class="sidebar">
+        <div class="genre">
+            <div class="label">Genre</div>
+            <ul v-for="item in genre">
+                <li>{{ item }}</li>
+            </ul>
+        </div>
+        <div class="language">
+            <div class="label">Language</div>
+            <ul v-for="item in language">
+                <li>{{ item }}</li>
+            </ul>
+        </div>
 
     </div>
 </template>
 
 <script>
     export default {
-        name: 'sideBar'
+        name: 'sideBar',
+        data() {
+            return {
+                genre:[
+                    'Action',
+                    'Horror',
+                    'Comedy',
+                    'Adventure',
+                    'Drama',
+                    'Sci-Fi'
+                ],
+                language: [
+                    'English',
+                    'Hindi',
+                    'Tamil',
+                    'Malayalam',
+                    'Japanese'
+                ]
+            }
+        }
     }
 </script>
 
@@ -23,5 +54,27 @@ $text-color-grey : #57585b;
     width: 15%;
     height: 100%;
     background-color: $primary-background-color;
+    display: flex;
+    flex-direction: column;
+    .genre, .language {
+        padding-top: 50px;
+        width: 100%;
+        padding-left: 30px;
+        ul, li {
+            text-align: left;
+            list-style: none;
+            color: $text-color-grey;
+            font-size: 19px;
+            padding: 0px 0px 3px 3px;
+            &:hover {
+                cursor: pointer;
+                color: #449845;
+            }
+        }
+        .label {
+            margin-bottom: 20px;
+            color: $text-color-white;
+        }
+    }
 }
 </style>
