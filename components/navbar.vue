@@ -37,7 +37,7 @@ $text-color-white : #ffffff;
 $text-color-grey : #57585b; 
 
 .navbar {
-    height: 10%;
+    height: 8%;
     width: 100%;
     display: flex;
     justify-content: space-between;
