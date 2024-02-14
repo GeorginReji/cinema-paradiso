@@ -1,4 +1,3 @@
-import axios from 'axios'
 
 export const state = () => ({
     list: [],
@@ -33,7 +32,7 @@ export const state = () => ({
   
   export const actions = {
     async fetchList({commit}) {
-        await axios.get('https://api.themoviedb.org/3/movie/popular?api_key=8e451eb027127bd618d55a98471aa506')
+        await this.$axios.get('movie/popular')
         .then((res) => {
           const topRatedMovies = res.data.results || [];
           commit('setList', topRatedMovies);
@@ -43,7 +42,7 @@ export const state = () => ({
         }) 
     },
     async fetchData({commit}, movieId) {
-      await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=8e451eb027127bd618d55a98471aa506`)
+      await this.$axios.get(`movie/${movieId}`)
       .then((res) => {
         console.log('movie obj',res);
         const movie = res.data
@@ -51,7 +50,7 @@ export const state = () => ({
       })
     },
     async fetchCast({commit}, movieId) {
-      await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=8e451eb027127bd618d55a98471aa506`)
+      await this.$axios.get(`movie/${movieId}/credits`)
       .then((res) => {
         console.log('cast obj',res);
         const {cast} = res.data
