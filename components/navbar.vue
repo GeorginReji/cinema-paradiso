@@ -37,11 +37,12 @@ $text-color-white : #ffffff;
 $text-color-grey : #57585b; 
 
 .navbar {
-    height: 10%;
+    height: 8%;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
     background-color: $primary-background-color;
     .logo {
         height: 100%;

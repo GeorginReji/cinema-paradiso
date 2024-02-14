@@ -51,15 +51,17 @@ $accent-color         : #222128;
 $text-color-white : #ffffff;
 $text-color-grey : #57585b; 
 .sidebar {
-    width: 15%;
+    margin-top: 8%;
+    width: 11%;
     height: 100%;
     background-color: $primary-background-color;
     display: flex;
     flex-direction: column;
     .genre, .language {
-        padding-top: 50px;
+        // padding-top: 50px;
         width: 100%;
-        padding-left: 30px;
+        padding: 1rem;
+        // padding-left: 1rem;
         ul, li {
             text-align: left;
             list-style: none;

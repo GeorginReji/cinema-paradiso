@@ -29,9 +29,14 @@ export default {
       '@/assets/scss/utils/_variables.scss'
     ]
   },
+  env: {
+    baseUrl: process.env.base_url || 'http://localhost:3000/',
+    apiKey: process.env.tmdb_api_key || null
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/axios.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -55,13 +60,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    loaders: {
-      sass: {
-        implementation: require('sass'),
-      },
-      scss: {
-        implementation: require('sass'),
-      },
-    }
+
   }
 }
