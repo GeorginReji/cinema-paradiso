@@ -51,6 +51,7 @@ $accent-color         : #222128;
 $text-color-white : #ffffff;
 $text-color-grey : #57585b; 
 .sidebar {
+    margin-top: 8%;
     width: 11%;
     height: 100%;
     background-color: $primary-background-color;

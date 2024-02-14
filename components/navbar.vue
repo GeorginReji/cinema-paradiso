@@ -42,6 +42,7 @@ $text-color-grey : #57585b;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
     background-color: $primary-background-color;
     .logo {
         height: 100%;

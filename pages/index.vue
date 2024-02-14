@@ -9,7 +9,9 @@
       <div v-for="movie in movies" :key="movie.id" class="card">
         <img :src="getMoviePosterUrl(movie.poster_path)" alt="">
         <div class="card-content">
-          <p>{{ movie.title }}</p>
+          <nuxt-link :to="{name: 'movie', query: { id: movie.id }}">
+            <p>{{ movie.title }}</p>
+          </nuxt-link>
           <p>{{ movie.vote_average }}</p>
         </div>
       </div>
@@ -39,8 +41,8 @@
  export default {
    name: 'IndexPage',
    mounted() {
-    this.$store.dispatch('movies/fetchMovies')
-    this.$store.dispatch('movies/fetchSeries')
+    this.$store.dispatch('movies/fetchList')
+    this.$store.dispatch('series/fetchList')
    },
    methods: {
     getMoviePosterUrl(poster_path) {
@@ -50,8 +52,8 @@
    },
    computed: {
     ...mapGetters({
-      movies: 'movies/getTopMovies',
-      series: 'movies/getTopSeries'
+      movies: 'movies/getList',
+      series: 'series/getList'
     })
    }
  }
@@ -67,6 +69,7 @@ $text-color-white : #ffffff;
 $text-color-grey : #57585b; 
  .index {
    height: 100%;
+   margin-top: 8%;
    .top-movie-section {
     width: 100%;
      .top-movie-header {
@@ -74,7 +77,6 @@ $text-color-grey : #57585b;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      padding: 10px;
       color: $text-color-white;
      }
      .card-container{

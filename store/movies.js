@@ -1,61 +1,63 @@
 import axios from 'axios'
 
 export const state = () => ({
-    movies: [],
-    series: []
+    list: [],
+    data: null,
+    cast: [],
+    crew: []
   })
   
   export const getters = {
-    getTopMovies(state) {
-      return state.movies.slice(0,5)
+    getList(state) {
+      return state.list.slice(0,5)
     },
-    getTopSeries(state) {
-      return state.series.slice(0,5)
+    getData(state) {
+      return state.data
     }
   }
   
   export const mutations = {
-    setMovies(state, payload) {
-      state.movies.push(...payload)
+    setList(state, payload) {
+      state.list.push(...payload)
     },
-    setSeries(state, payload) {
-      state.series.push(...payload)
+    setCrew(state, payload) {
+      state.crew.push(...payload)
+    },
+    setCast(state, payload) {
+      state.cast.push(...payload)
+    },
+    setData(state, payload) {
+      state.data = payload
     }
   }
   
   export const actions = {
-    async fetchMovies({commit}) {
-      try {
-        const response = await axios.get('https://api.themoviedb.org/3/movie/popular',
-        {
-          params: {
-            api_key: '8e451eb027127bd618d55a98471aa506',
-          },
-        }
-        );
-        console.log(response);
-  
-        const topRatedMovies = response.data.results || [];
-        commit('setMovies', topRatedMovies);
-      } catch (error) {
-        console.error('Error fetching top-rated movies:', error);
-      }
+    async fetchList({commit}) {
+        await axios.get('https://api.themoviedb.org/3/movie/popular?api_key=8e451eb027127bd618d55a98471aa506')
+        .then((res) => {
+          const topRatedMovies = res.data.results || [];
+          commit('setList', topRatedMovies);
+        })
+        .catch ((error)=> {
+          console.error('Error fetching top-rated movies:', error);
+        }) 
     },
-    async fetchSeries({commit}) {
-      try {
-        const response = await axios.get('https://api.themoviedb.org/3/tv/popular',
-        {
-          params: {
-            api_key: '8e451eb027127bd618d55a98471aa506',
-          },
-        }
-        );
-        console.log(response);
-  
-        const topRatedSeries = response.data.results || [];
-        commit('setSeries', topRatedSeries);
-      } catch (error) {
-        console.error('Error fetching top-rated movies:', error);
-      }
+    async fetchData({commit}, movieId) {
+      await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=8e451eb027127bd618d55a98471aa506`)
+      .then((res) => {
+        console.log('movie obj',res);
+        const movie = res.data
+        commit('setData', movie)
+      })
+    },
+    async fetchCast({commit}, movieId) {
+      await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=8e451eb027127bd618d55a98471aa506`)
+      .then((res) => {
+        console.log('cast obj',res);
+        const {cast} = res.data
+        commit('setCast', cast)
+        const {crew} = res.data
+        commit('setCrew', crew)
+      })
     }
   }
