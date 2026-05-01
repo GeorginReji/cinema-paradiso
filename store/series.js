@@ -16,8 +16,8 @@ export const mutations = {
 };
 
 export const actions = {
-  async fetchList({ commit }) {
-    await this.$axios
+  fetchList({ commit }) {
+    this.$axios
       .get(`tv/popular`)
       .then((res) => {
         const topRatedSeries = res.data.results || [];
