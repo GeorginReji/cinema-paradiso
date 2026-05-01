@@ -24,15 +24,6 @@ export default {
 </script>
 
 <style lang="scss">
-/* colors */
-$primary-background-color: #0f1115;
-$secondary-background-color: #19181f;
-$accent-color: #222128;
-
-/* text color */
-$text-color-white: #ffffff;
-$text-color-grey: #57585b;
-
 .navbar {
     height: 8%;
     width: 100%;
