@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
         <div class="logo">
-            <img src="../assets/images/appLogo.png" alt="">
+            <img src="../assets/images/appLogo.png" alt="" />
         </div>
         <div class="nav-links">
             <nuxt-link to="/movies">
@@ -10,31 +10,28 @@
             <nuxt-link to="/tvShows">
                 <span class="link">TV Show</span>
             </nuxt-link>
-            <nuxt-link to="/watchList">
-                <span class="link">Watchlist</span>
-            </nuxt-link>
             <div class="profile">
-                <img src="../assets/images/profilepic.jpg" alt="">
+                <img src="../assets/images/profilepic.jpg" alt="" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    export default {
-        name: 'Navbar'
-    }
+export default {
+    name: 'Navbar'
+}
 </script>
 
 <style lang="scss">
 /* colors */
-$primary-background-color     : #0f1115;
+$primary-background-color: #0f1115;
 $secondary-background-color: #19181f;
-$accent-color         : #222128;
+$accent-color: #222128;
 
 /* text color */
-$text-color-white : #ffffff;
-$text-color-grey : #57585b; 
+$text-color-white: #ffffff;
+$text-color-grey: #57585b;
 
 .navbar {
     height: 8%;
@@ -62,9 +59,9 @@ $text-color-grey : #57585b;
         padding: 10px;
 
         .link:hover {
-        text-decoration: underline;
-        cursor: pointer;
-    }
+            text-decoration: underline;
+            cursor: pointer;
+        }
         .profile {
             width: 35px;
             height: 35px;
@@ -81,5 +78,4 @@ $text-color-grey : #57585b;
         }
     }
 }
-
 </style>
