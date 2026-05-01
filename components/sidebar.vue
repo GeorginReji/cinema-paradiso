@@ -157,12 +157,23 @@ export default {
     }
 
     .menu-item {
+        display: flex;
+        align-items: center;
         padding: 0.75rem 1rem 0.75rem 3rem;
         color: $text-color-grey;
         font-size: 1rem;
         cursor: pointer;
         transition: all 0.2s ease;
         border-left: 3px solid transparent;
+
+        .icon {
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .label {
+            flex: 1;
+        }
 
         &:is(:hover, .active) {
             color: $accent-color;
