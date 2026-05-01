@@ -1,40 +1,45 @@
 <template>
-    <div class="index">
-        <div class="top-movie-section">
-            <div class="top-movie-header">
-                <h3>Trending Movies</h3>
-                <!-- <span>See Move</span> -->
-            </div>
+    <main>
+        <section class="hero"></section>
+        <section class="top-movie-section">
+            <h3>Trending Movies</h3>
             <div class="card-container">
                 <div v-for="movie in movies" :key="movie.id" class="card">
-                    <img :src="getMoviePosterUrl(movie.poster_path)" alt="" />
+                    <img
+                        :src="$utils.getImageUrl(movie.poster_path, 500)"
+                        alt=""
+                    />
                     <div class="card-content">
+                        <span class="badge">{{
+                            movie.vote_average.toFixed(2)
+                        }}</span>
                         <nuxt-link
                             :to="{ name: 'movie', query: { id: movie.id } }"
                         >
                             <p>{{ movie.title }}</p>
                         </nuxt-link>
-                        <p>{{ movie.vote_average }}</p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="top-movie-section">
-            <div class="top-movie-header">
-                <h3>Trending Series</h3>
-                <!-- <span>See Move</span> -->
-            </div>
+        </section>
+        <section class="top-movie-section">
+            <h3>Trending Series</h3>
             <div class="card-container">
                 <div v-for="series in series" :key="series.id" class="card">
-                    <img :src="getMoviePosterUrl(series.poster_path)" alt="" />
+                    <img
+                        :src="$utils.getImageUrl(series.poster_path, 500)"
+                        alt=""
+                    />
                     <div class="card-content">
+                        <span class="badge">{{
+                            series.vote_average.toFixed(2)
+                        }}</span>
                         <p>{{ series.original_name }}</p>
-                        <p>{{ series.vote_average }}</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 </template>
 
 <script>
@@ -46,12 +51,6 @@ export default {
         this.$store.dispatch('movies/fetchList')
         this.$store.dispatch('series/fetchList')
     },
-    methods: {
-        getMoviePosterUrl(poster_path) {
-            const baseUrl = 'https://image.tmdb.org/t/p/w500'
-            return `${baseUrl}${poster_path}`
-        }
-    },
     computed: {
         ...mapGetters({
             movies: 'movies/getList',
@@ -61,33 +60,44 @@ export default {
 }
 </script>
 <style lang="scss">
-.index {
+main {
     height: 100%;
-    margin-top: 8%;
+    background-color: $secondary-background-color;
+
     .top-movie-section {
         width: 100%;
-        .top-movie-header {
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            color: $text-color-white;
-        }
+
         .card-container {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
             flex-direction: row;
-            padding: 20px;
+            padding: 1.5rem;
+
             .card {
-                width: 11rem;
+                width: 15rem;
                 overflow: hidden;
+
                 img {
                     width: 100%;
                     height: auto;
                 }
+
+                .badge {
+                    position: relative;
+                    z-index: 1;
+                    top: -50px;
+                    left: 180px;
+                    background-color: $primary-background-color;
+                    color: $text-color-white;
+                    padding: 5px 8px;
+                    border-radius: 10px;
+                    font-size: 1rem;
+                }
+
                 .card-content {
                     padding: 10px;
+
                     p {
                         font-size: 18px;
                         font-weight: 400;

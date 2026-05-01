@@ -37,11 +37,12 @@ export default {
     // Runtime Config with built-in dotenv support
     publicRuntimeConfig: {
         baseUrl: process.env.base_url,
-        apiKey: process.env.tmdb_api_key
+        apiKey: process.env.tmdb_api_key,
+        imageBaseUrl: process.env.image_base_url
     },
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: ['~/plugins/axios.js'],
+    plugins: ['~/plugins/axios.js', '~/plugins/utils.js'],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,
