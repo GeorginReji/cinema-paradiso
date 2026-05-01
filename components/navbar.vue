@@ -1,8 +1,5 @@
 <template>
     <div class="navbar">
-        <div class="logo">
-            <img src="../assets/images/appLogo.png" alt="" />
-        </div>
         <div class="nav-links">
             <nuxt-link to="/movies">
                 <span class="link">Movie</span>

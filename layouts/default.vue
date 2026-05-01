@@ -1,11 +1,9 @@
 <template>
     <div class="layout">
-        <navbar />
+        <sidebar />
         <div class="hero">
-            <sidebar />
-            <div class="content">
-                <Nuxt />
-            </div>
+            <navbar />
+            <Nuxt />
         </div>
     </div>
 </template>
@@ -18,16 +16,7 @@ export default {
 
 <style lang="scss">
 .layout {
-    height: 100vh;
-    .hero {
-        display: flex;
-        width: 100%;
-        height: auto;
-        .content {
-            border-top-left-radius: 30px;
-            width: 100%;
-            background-color: $secondary-background-color;
-        }
-    }
+    display: grid;
+    grid-template-columns: minmax(200px, 10%) 1fr;
 }
 </style>

@@ -23,7 +23,8 @@ export default {
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: [
         // Load global SCSS file
-        '@/assets/scss/main.scss'
+        '@/assets/scss/main.scss',
+        'remixicon/fonts/remixicon.css'
     ],
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
