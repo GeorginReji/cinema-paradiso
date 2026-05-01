@@ -18,5 +18,10 @@ export default {
 .layout {
     display: grid;
     grid-template-columns: minmax(200px, 10%) 1fr;
+
+    .hero {
+        display: flex;
+        flex-direction: column;
+    }
 }
 </style>

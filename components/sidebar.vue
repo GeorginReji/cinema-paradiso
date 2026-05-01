@@ -1,10 +1,10 @@
 <template>
     <aside class="sidebar">
+        <!-- Logo -->
         <header>
             <img src="../assets/images/appLogo.png" alt="" />
             <h1>Cinema Paradiso</h1>
         </header>
-        <div class="divider"></div>
         <!-- Links Section -->
         <div class="links-section">
             <div
@@ -49,8 +49,6 @@
 </template>
 
 <script>
-import { h } from 'vue'
-
 export default {
     name: 'sideBar',
     data() {
