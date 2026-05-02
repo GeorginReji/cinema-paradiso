@@ -20,7 +20,7 @@
                     }}</span>
                     <div class="card-content">
                         <nuxt-link
-                            v-if="activeFilter === 'movies'"
+                            v-if="activeFilter === 'movie'"
                             :to="{ name: 'movie', query: { id: item.id } }"
                         >
                             <p>{{ item.title }}</p>
@@ -38,25 +38,33 @@
  * @typedef {import('../types/tmdb').Movie} Movie
  * @typedef {import('../types/tmdb').TVSeries} TVSeries
  * @typedef {import('../types/tmdb').MediaItem} MediaItem
- * @typedef {'movies' | 'tvShows'} FilterType
+ * @typedef {'movie' | 'tv'} FilterType
  */
 
 export default {
     name: 'IndexPage',
 
-    data() {
-        return {
-            /** @type {FilterType} */
-            activeFilter: 'movies'
+    watch: {
+        '$route.query.type': {
+            immediate: true,
+            handler(type) {
+                const resolved = type === 'tv' ? 'tv' : 'movie'
+                this.$store.commit('setType', resolved)
+
+                if (resolved === 'movie' && this.moviesList.length === 0) {
+                    this.$store.dispatch('movies/fetchList')
+                } else if (resolved === 'tv' && this.seriesList.length === 0) {
+                    this.$store.dispatch('series/fetchList')
+                }
+            }
         }
     },
 
-    mounted() {
-        this.$store.dispatch('movies/fetchList')
-        this.$store.dispatch('series/fetchList')
-    },
-
     computed: {
+        /** @returns {FilterType} */
+        activeFilter() {
+            return this.$route.query.type === 'tv' ? 'tv' : 'movie'
+        },
         /** @returns {Movie[]} */
         moviesList() {
             return this.$store.getters['movies/getTrendingList']
@@ -69,31 +77,26 @@ export default {
 
         /** @returns {MediaItem[]} */
         carouselItems() {
-            return this.activeFilter === 'movies'
+            return this.activeFilter === 'movie'
                 ? this.moviesList
                 : this.seriesList
         },
 
         /** @returns {MediaItem[]} */
         displayList() {
-            return this.activeFilter === 'movies'
+            return this.activeFilter === 'movie'
                 ? this.moviesList
                 : this.seriesList
         },
 
         title() {
-            return this.activeFilter === 'movies'
+            return this.activeFilter === 'movie'
                 ? 'Popular Movies'
                 : 'Popular TV Shows'
         }
     },
 
-    methods: {
-        /** @param {FilterType} filter */
-        setFilter(filter) {
-            this.activeFilter = filter
-        }
-    }
+    methods: {}
 }
 </script>
 

@@ -5,11 +5,19 @@
             <i class="ri-search-line"></i>
         </div>
         <div class="toggle-button-group">
-            <nuxt-link class="toggle-button" to="/movies">
+            <nuxt-link
+                class="toggle-button"
+                :class="isActive('movie')"
+                :to="{ path: '/', query: { type: 'movie' } }"
+            >
                 <span class="link">Movie</span>
             </nuxt-link>
-            <nuxt-link class="toggle-button" to="/tvShows">
-                <span class="link">TV Show</span>
+            <nuxt-link
+                class="toggle-button"
+                :class="isActive('tv')"
+                :to="{ path: '/', query: { type: 'tv' } }"
+            >
+                <span class="link">Series</span>
             </nuxt-link>
         </div>
         <div class="profile">
@@ -20,7 +28,19 @@
 
 <script>
 export default {
-    name: 'Navbar'
+    name: 'Navbar',
+
+    computed: {
+        currentType() {
+            return this.$store.getters.getType
+        }
+    },
+
+    methods: {
+        isActive(type) {
+            return this.currentType === type ? 'is-active' : ''
+        }
+    }
 }
 </script>
 
@@ -65,8 +85,8 @@ export default {
             color: $text-color-white;
         }
 
-        &.nuxt-link-active {
-            background-color: $accent-color;
+        &.is-active {
+            background-color: rgba($accent-color, 0.5);
             color: $text-color-white;
             box-shadow: 0 2px 8px rgba($accent-color, 0.3);
         }
