@@ -4,10 +4,10 @@
         <section class="list-section">
             <h3>Trending Movies</h3>
             <div class="card-container">
-                <div v-for="movie in movies" :key="movie.id" class="card">
+                <div v-for="movie in moviesList" :key="movie.id" class="card">
                     <img
                         :src="$utils.getImageUrl(movie.poster_path, 500)"
-                        alt=""
+                        :alt="`${movie.title} poster`"
                     />
                     <span class="badge">{{
                         movie.vote_average.toFixed(2)
@@ -25,7 +25,7 @@
         <section class="list-section">
             <h3>Trending Series</h3>
             <div class="card-container">
-                <div v-for="series in series" :key="series.id" class="card">
+                <div v-for="series in seriesList" :key="series.id" class="card">
                     <img
                         :src="$utils.getImageUrl(series.poster_path, 500)"
                         alt=""
@@ -43,22 +43,32 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+/**
+ * @typedef {import('../types/tmdb').Movie} Movie
+ * @typedef {import('../types/tmdb').TVSeries} TVSeries
+ */
 
 export default {
     name: 'IndexPage',
+
     mounted() {
         this.$store.dispatch('movies/fetchList')
         this.$store.dispatch('series/fetchList')
     },
+
     computed: {
-        ...mapGetters({
-            movies: 'movies/getList',
-            series: 'series/getList'
-        })
+        /** @returns {Movie[]} */
+        moviesList() {
+            return this.$store.getters['movies/getTrendingList']
+        },
+        /** @returns {TVSeries[]} */
+        seriesList() {
+            return this.$store.getters['series/getTrendingList']
+        }
     }
 }
 </script>
+
 <style lang="scss">
 main {
     height: 100%;

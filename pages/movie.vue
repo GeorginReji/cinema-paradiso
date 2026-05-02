@@ -58,17 +58,24 @@
 </template>
 
 <script>
+/** @typedef {import('../types/tmdb').MovieDetail} MovieDetail */
+
 import { mapGetters } from 'vuex'
+
 export default {
+    name: 'MoviePage',
     layout: 'customLayout',
-    mounted() {
-        this.$store.dispatch('movies/fetchData', parseInt(this.$route.query.id))
-        this.$store.dispatch('movies/fetchCast', parseInt(this.$route.query.id))
-    },
+
     computed: {
         ...mapGetters({
             movie: 'movies/getData'
         })
+    },
+
+    mounted() {
+        const movieId = parseInt(this.$route.query.id)
+        this.$store.dispatch('movies/fetchData', movieId)
+        this.$store.dispatch('movies/fetchCast', movieId)
     }
 }
 </script>

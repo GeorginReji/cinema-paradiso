@@ -49,10 +49,18 @@
 </template>
 
 <script>
+/**
+ * @typedef {import('../types').NavLink} NavLink
+ * @typedef {import('../types').ExpandableSection} ExpandableSection
+ * @typedef {import('../types').SectionItem} SectionItem
+ */
+
 export default {
-    name: 'sideBar',
+    name: 'SideBar',
+
     data() {
         return {
+            /** @type {NavLink[]} */
             simpleLinks: [
                 { id: 'home', label: 'Home', icon: 'ri-home-line', route: '/' },
                 {
@@ -68,6 +76,8 @@ export default {
                     route: '/favorites'
                 }
             ],
+
+            /** @type {ExpandableSection[]} */
             expandableSections: [
                 {
                     id: 'genres',
@@ -95,14 +105,19 @@ export default {
                     ]
                 }
             ],
-            expandedSections: {
-                genres: true,
-                language: false
-            },
+
+            expandedSections: { genres: true, language: false },
+
             activeLink: 'home'
         }
     },
+
     methods: {
+        /**
+         * Toggles a sidebar section open/closed.
+         * @param {string} sectionId
+         * @returns {void}
+         */
         toggleSection(sectionId) {
             this.$set(
                 this.expandedSections,
@@ -110,9 +125,14 @@ export default {
                 !this.expandedSections[sectionId]
             )
         },
+
+        /**
+         * Handles a nav link click — sets the active state and navigates.
+         * @param {NavLink} item
+         * @returns {void}
+         */
         handleLinkClick(item) {
             this.activeLink = item.id
-            console.log('Navigating to:', item.route)
             // this.$router.push(item.route)
         }
     }
