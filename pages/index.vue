@@ -1,7 +1,7 @@
 <template>
     <main>
         <section class="hero"></section>
-        <section class="top-movie-section">
+        <section class="list-section">
             <h3>Trending Movies</h3>
             <div class="card-container">
                 <div v-for="movie in movies" :key="movie.id" class="card">
@@ -9,10 +9,10 @@
                         :src="$utils.getImageUrl(movie.poster_path, 500)"
                         alt=""
                     />
+                    <span class="badge">{{
+                        movie.vote_average.toFixed(2)
+                    }}</span>
                     <div class="card-content">
-                        <span class="badge">{{
-                            movie.vote_average.toFixed(2)
-                        }}</span>
                         <nuxt-link
                             :to="{ name: 'movie', query: { id: movie.id } }"
                         >
@@ -22,7 +22,7 @@
                 </div>
             </div>
         </section>
-        <section class="top-movie-section">
+        <section class="list-section">
             <h3>Trending Series</h3>
             <div class="card-container">
                 <div v-for="series in series" :key="series.id" class="card">
@@ -30,10 +30,10 @@
                         :src="$utils.getImageUrl(series.poster_path, 500)"
                         alt=""
                     />
+                    <span class="badge">{{
+                        series.vote_average.toFixed(2)
+                    }}</span>
                     <div class="card-content">
-                        <span class="badge">{{
-                            series.vote_average.toFixed(2)
-                        }}</span>
                         <p>{{ series.original_name }}</p>
                     </div>
                 </div>
@@ -64,12 +64,19 @@ main {
     height: 100%;
     background-color: $secondary-background-color;
 
-    .top-movie-section {
+    .list-section {
         width: 100%;
+
+        h3 {
+            margin: 1rem;
+            color: $text-color-white;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
 
         .card-container {
             display: flex;
-            justify-content: space-between;
+            gap: 2rem;
             flex-wrap: wrap;
             flex-direction: row;
             padding: 1.5rem;
@@ -86,8 +93,8 @@ main {
                 .badge {
                     position: relative;
                     z-index: 1;
-                    top: -50px;
-                    left: 180px;
+                    top: -45px;
+                    left: 190px;
                     background-color: $primary-background-color;
                     color: $text-color-white;
                     padding: 5px 8px;
@@ -96,12 +103,14 @@ main {
                 }
 
                 .card-content {
-                    padding: 10px;
-
+                    margin-top: -1.5rem;
+                    a {
+                        text-decoration: none;
+                    }
                     p {
                         font-size: 18px;
                         font-weight: 400;
-                        color: $text-color-white;
+                        color: $text-color-grey;
                     }
                 }
             }

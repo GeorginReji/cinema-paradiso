@@ -7,7 +7,7 @@ export const state = () => ({
 
 export const getters = {
     getList(state) {
-        return state.list.slice(0, 5)
+        return state.list
     },
     getData(state) {
         return state.data
