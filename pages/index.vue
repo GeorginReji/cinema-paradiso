@@ -1,40 +1,31 @@
 <template>
     <main>
-        <section class="hero"></section>
-        <section class="list-section">
-            <h3>Trending Movies</h3>
+        <Carousel :items="carouselItems" />
+
+        <section class="content-section">
+            <div class="section-header">
+                <h3>
+                    {{ title }}
+                </h3>
+            </div>
+
             <div class="card-container">
-                <div v-for="movie in moviesList" :key="movie.id" class="card">
+                <div v-for="item in displayList" :key="item.id" class="card">
                     <img
-                        :src="$utils.getImageUrl(movie.poster_path, 500)"
-                        :alt="`${movie.title} poster`"
+                        :src="$utils.getImageUrl(item.poster_path, 500)"
+                        :alt="item.title || item.name"
                     />
                     <span class="badge">{{
-                        movie.vote_average.toFixed(2)
+                        item.vote_average.toFixed(2)
                     }}</span>
                     <div class="card-content">
                         <nuxt-link
-                            :to="{ name: 'movie', query: { id: movie.id } }"
+                            v-if="activeFilter === 'movies'"
+                            :to="{ name: 'movie', query: { id: item.id } }"
                         >
-                            <p>{{ movie.title }}</p>
+                            <p>{{ item.title }}</p>
                         </nuxt-link>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="list-section">
-            <h3>Trending Series</h3>
-            <div class="card-container">
-                <div v-for="series in seriesList" :key="series.id" class="card">
-                    <img
-                        :src="$utils.getImageUrl(series.poster_path, 500)"
-                        alt=""
-                    />
-                    <span class="badge">{{
-                        series.vote_average.toFixed(2)
-                    }}</span>
-                    <div class="card-content">
-                        <p>{{ series.original_name }}</p>
+                        <p v-else>{{ item.name || item.original_name }}</p>
                     </div>
                 </div>
             </div>
@@ -46,10 +37,19 @@
 /**
  * @typedef {import('../types/tmdb').Movie} Movie
  * @typedef {import('../types/tmdb').TVSeries} TVSeries
+ * @typedef {import('../types/tmdb').MediaItem} MediaItem
+ * @typedef {'movies' | 'tvShows'} FilterType
  */
 
 export default {
     name: 'IndexPage',
+
+    data() {
+        return {
+            /** @type {FilterType} */
+            activeFilter: 'movies'
+        }
+    },
 
     mounted() {
         this.$store.dispatch('movies/fetchList')
@@ -61,9 +61,37 @@ export default {
         moviesList() {
             return this.$store.getters['movies/getTrendingList']
         },
+
         /** @returns {TVSeries[]} */
         seriesList() {
             return this.$store.getters['series/getTrendingList']
+        },
+
+        /** @returns {MediaItem[]} */
+        carouselItems() {
+            return this.activeFilter === 'movies'
+                ? this.moviesList
+                : this.seriesList
+        },
+
+        /** @returns {MediaItem[]} */
+        displayList() {
+            return this.activeFilter === 'movies'
+                ? this.moviesList
+                : this.seriesList
+        },
+
+        title() {
+            return this.activeFilter === 'movies'
+                ? 'Popular Movies'
+                : 'Popular TV Shows'
+        }
+    },
+
+    methods: {
+        /** @param {FilterType} filter */
+        setFilter(filter) {
+            this.activeFilter = filter
         }
     }
 }
@@ -73,57 +101,66 @@ export default {
 main {
     height: 100%;
     background-color: $secondary-background-color;
+}
 
-    .list-section {
+.content-section {
+    width: 100%;
+    padding-bottom: 2rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem 0.75rem;
+
+    h3 {
+        color: $text-color-white;
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
+}
+
+.card-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 1.5rem;
+}
+
+.card {
+    width: 15rem;
+    overflow: hidden;
+
+    img {
         width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
 
-        h3 {
-            margin: 1rem;
-            color: $text-color-white;
-            font-size: 1.5rem;
-            font-weight: 400;
+    .badge {
+        position: relative;
+        z-index: 1;
+        top: -45px;
+        left: 190px;
+        background-color: $primary-background-color;
+        color: $text-color-white;
+        padding: 5px 8px;
+        border-radius: 10px;
+        font-size: 1rem;
+    }
+
+    .card-content {
+        margin-top: -1.5rem;
+
+        a {
+            text-decoration: none;
         }
 
-        .card-container {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            flex-direction: row;
-            padding: 1.5rem;
-
-            .card {
-                width: 15rem;
-                overflow: hidden;
-
-                img {
-                    width: 100%;
-                    height: auto;
-                }
-
-                .badge {
-                    position: relative;
-                    z-index: 1;
-                    top: -45px;
-                    left: 190px;
-                    background-color: $primary-background-color;
-                    color: $text-color-white;
-                    padding: 5px 8px;
-                    border-radius: 10px;
-                    font-size: 1rem;
-                }
-
-                .card-content {
-                    margin-top: -1.5rem;
-                    a {
-                        text-decoration: none;
-                    }
-                    p {
-                        font-size: 18px;
-                        font-weight: 400;
-                        color: $text-color-grey;
-                    }
-                }
-            }
+        p {
+            font-size: 18px;
+            font-weight: 400;
+            color: $text-color-grey;
         }
     }
 }

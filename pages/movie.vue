@@ -4,12 +4,14 @@
             v-if="movie"
             class="movie-view"
             :style="{
-                backgroundImage: `url('https://image.tmdb.org/t/p/original${movie.backdrop_path}')`
+                backgroundImage: $utils.getImageUrl(
+                    `original${movie.backdrop_path}`
+                )
             }"
         >
             <div class="poster">
                 <img
-                    :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+                    :src="$utils.getImageUrl(movie.poster_path, 500)"
                     alt="movie poster"
                 />
             </div>

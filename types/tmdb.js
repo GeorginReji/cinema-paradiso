@@ -103,4 +103,20 @@
  * @property {number} total_results
  */
 
+/**
+ * Shared display shape for both Movie and TVSeries list items.
+ * Fields that only exist on one type are marked optional so the
+ * template can access them without type errors.
+ *
+ * @typedef {Object} MediaItem
+ * @property {number} id
+ * @property {string} [title] - Movies only
+ * @property {string} [name] - TV series only
+ * @property {string} [original_name] - TV series only
+ * @property {string|null} poster_path
+ * @property {string|null} backdrop_path
+ * @property {number} vote_average
+ * @property {string} overview
+ */
+
 export {}

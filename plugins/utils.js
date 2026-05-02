@@ -20,7 +20,7 @@ export default (context, inject) => {
          */
         getImageUrl(path, width) {
             const baseUrl = context.app.$config.imageBaseUrl
-            return `${baseUrl}${width ? `${width}/` : ''}${path}`
+            return `${baseUrl}${width ? `w${width}` : ''}${path}`
         }
     }
 

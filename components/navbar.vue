@@ -1,5 +1,9 @@
 <template>
     <div class="navbar">
+        <div class="search-container">
+            <input type="text" placeholder="Search..." />
+            <i class="ri-search-line"></i>
+        </div>
         <div class="toggle-button-group">
             <nuxt-link class="toggle-button" to="/movies">
                 <span class="link">Movie</span>
@@ -65,6 +69,46 @@ export default {
             background-color: $accent-color;
             color: $text-color-white;
             box-shadow: 0 2px 8px rgba($accent-color, 0.3);
+        }
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        background-color: $secondary-background-color;
+        border-bottom: 1px solid rgba($accent-color, 0.2);
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+        width: 250px;
+        transition: all 0.3s ease;
+
+        &:focus-within {
+            border-color: $accent-color;
+        }
+
+        input {
+            flex: 1;
+            background-color: transparent;
+            border: none;
+            color: $text-color-white;
+            font-size: 0.95rem;
+            outline: none;
+            margin-right: 0.75rem;
+
+            &::placeholder {
+                color: $text-color-grey;
+            }
+        }
+
+        i {
+            color: $text-color-grey;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                color: $accent-color;
+            }
         }
     }
 

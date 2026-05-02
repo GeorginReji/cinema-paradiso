@@ -22,7 +22,7 @@ export const getters = {
 
     /** @param {MoviesState} state */
     getTrendingList(state) {
-        const LIST_COUNT = 8
+        const LIST_COUNT = 20
         return state.list.slice(0, LIST_COUNT)
     },
 

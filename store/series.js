@@ -17,7 +17,7 @@ export const getters = {
 
     /** @param {SeriesState} state */
     getTrendingList(state) {
-        const LIST_COUNT = 8
+        const LIST_COUNT = 20
         return state.list.slice(0, LIST_COUNT)
     },
 
