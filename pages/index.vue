@@ -10,7 +10,7 @@
             </div>
 
             <div class="card-container">
-                <div v-for="item in displayList" :key="item.id" class="card">
+                <div v-for="item in displayList" :key="item.id" class="poster">
                     <img
                         :src="$utils.getImageUrl(item.poster_path, 500)"
                         :alt="item.title || item.name"
@@ -38,7 +38,6 @@
  * @typedef {import('../types/tmdb').Movie} Movie
  * @typedef {import('../types/tmdb').TVSeries} TVSeries
  * @typedef {import('../types/tmdb').MediaItem} MediaItem
- * @typedef {'movie' | 'tv'} FilterType
  */
 
 export default {
@@ -61,7 +60,6 @@ export default {
     },
 
     computed: {
-        /** @returns {FilterType} */
         activeFilter() {
             return this.$route.query.type === 'tv' ? 'tv' : 'movie'
         },
@@ -100,7 +98,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 main {
     height: 100%;
     background-color: $secondary-background-color;
@@ -131,16 +129,8 @@ main {
     padding: 1.5rem;
 }
 
-.card {
+.poster {
     width: 15rem;
-    overflow: hidden;
-
-    img {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
-    }
-
     .badge {
         position: relative;
         z-index: 1;

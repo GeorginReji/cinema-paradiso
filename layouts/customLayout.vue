@@ -1,10 +1,7 @@
 <template>
     <div class="layout">
-        <navbar />
         <div class="hero">
-            <div class="content">
-                <Nuxt />
-            </div>
+            <Nuxt />
         </div>
     </div>
 </template>
@@ -15,18 +12,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .layout {
-    height: 100vh;
-    .hero {
-        display: flex;
-        width: 100%;
-        height: auto;
-        .content {
-            border-top-left-radius: 30px;
-            width: 100%;
-            background-color: $secondary-background-color;
-        }
-    }
 }
 </style>

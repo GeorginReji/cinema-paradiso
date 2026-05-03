@@ -139,7 +139,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .sidebar {
     padding-top: 0.5rem;
     background-color: $primary-background-color;

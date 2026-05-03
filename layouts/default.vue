@@ -14,14 +14,31 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .layout {
-    display: grid;
-    grid-template-columns: minmax(200px, 10%) 1fr;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+
+    .sidebar {
+        width: 240px;
+        min-height: 100vh;
+        flex: 0 0 240px;
+        position: sticky;
+        top: 0;
+        align-self: flex-start;
+    }
 
     .hero {
         display: flex;
+        flex: 1;
         flex-direction: column;
+        min-width: 0;
+    }
+
+    .navbar {
+        top: 0;
+        z-index: 10;
     }
 }
 </style>

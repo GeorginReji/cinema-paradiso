@@ -3,8 +3,16 @@
 /* colors */
 $primary-background-color: #0f1115;
 $secondary-background-color: #19181f;
+
 $accent-color: #449845;
+$secondary-accent-color: #3498db;
+
+$rating-color: oklch(92.4% 0.12 95.746);
 
 /* text color */
 $text-color-white: #ffffff;
 $text-color-grey: #57585b;
+
+/* button color */
+$primary-button-color: $accent-color;
+$secondary-button-color: $secondary-accent-color;

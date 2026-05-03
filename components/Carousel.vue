@@ -17,7 +17,7 @@
                         :src="$utils.getImageUrl(item.backdrop_path, 1280)"
                         :alt="item.title || item.name"
                     />
-                    <div class="slide-overlay">
+                    <div class="backdrop-overlay">
                         <div class="slide-info">
                             <h1 class="slide-title">
                                 {{ item.title || item.name }}
@@ -36,7 +36,7 @@
                                     ).slice(0, 4)
                                 }}</span>
                             </div>
-                            <button class="btn-watch">
+                            <button class="btn primary watch">
                                 <i class="ri-play-fill"></i> Watch Now
                             </button>
                         </div>
@@ -64,6 +64,11 @@
 </template>
 
 <script>
+/**
+ * @typedef {Object} CarouselData
+ * @property {number} current
+ * @property {ReturnType<typeof setInterval> | null} timer
+ */
 export default {
     name: 'Carousel',
 
@@ -74,10 +79,13 @@ export default {
         }
     },
 
+    /**
+     * @returns {CarouselData}
+     */
     data() {
         return {
             current: 0,
-            timer: null
+            timer: null // Timer for auto-play slides
         }
     },
 
@@ -165,26 +173,6 @@ export default {
     flex-shrink: 0;
 }
 
-.backdrop-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.slide-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to right,
-        rgba($primary-background-color, 0.95) 0%,
-        rgba($primary-background-color, 0.55) 50%,
-        transparent 100%
-    );
-    display: flex;
-    align-items: center;
-}
-
 .slide-info {
     max-width: 500px;
     padding: 2rem 3rem;
@@ -212,6 +200,19 @@ export default {
     color: $text-color-white;
     line-height: 1.2;
     margin: 0;
+}
+
+.backdrop-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba($primary-background-color, 0.95) 0%,
+        rgba($primary-background-color, 0.55) 50%,
+        transparent 100%
+    );
+    display: flex;
+    align-items: center;
 }
 
 .slide-overview {
@@ -247,24 +248,16 @@ export default {
     font-size: 0.95rem;
 }
 
-.btn-watch {
+.watch {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    background: $accent-color;
-    color: $text-color-white;
-    border: none;
     border-radius: 6px;
+    gap: 0.45rem;
     padding: 0.75rem 1.75rem;
     font-size: 0.95rem;
     font-weight: 600;
-    cursor: pointer;
     align-self: flex-start;
     transition: background 0.2s ease;
-
-    &:hover {
-        background: darken($accent-color, 8%);
-    }
 }
 
 .carousel-ctrl {
